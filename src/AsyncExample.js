@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-const slowUrl =
-  'http://slowwly.robertomurray.co.uk/delay/3000/url/https://jsonplaceholder.typicode.com/posts';
+const slowUrl = 'https://jsonplaceholder.typicode.com/posts';
+const delayEnd = 3000 + Math.random() * 1000;
+const delay = time => result =>
+  new Promise(resolve => setTimeout(() => resolve(result), time));
 
 class AsyncExample extends Component {
   constructor(props) {
@@ -22,7 +24,9 @@ class AsyncExample extends Component {
     // this is incredibly useless
     // just wanted to show you can do stuff while waiting for ajax
     this.interval = setInterval(() => {
-      this.update({ loading: true, elapsed: new Date() - startTime });
+      const elapsed = new Date() - startTime;
+      const progress = elapsed / delayEnd * 100;
+      this.update({ loading: true, elapsed, progress });
     }, 20);
   }
 
@@ -42,9 +46,11 @@ class AsyncExample extends Component {
     }
 
     this.update({ loading: true });
+
     this.startTimer();
     fetch(slowUrl)
       .then(response => response.json())
+      .then(delay(delayEnd))
       .then(this.fetchResponse)
       .catch(ex => console.log('failed', ex));
   }
@@ -53,6 +59,11 @@ class AsyncExample extends Component {
     const state = this.props.data;
     return (
       <div id="async-example" className="AsyncExample">
+        <small className="db tc mt2">
+          <a href="https://github.com/blairanderson/react-no-redux/blob/master/src/AsyncExample.js">
+            AsyncExample Code on GitHub
+          </a>
+        </small>
         <div className="mw8 center cf-ns nl2 nr2 vh-100">
           <div className="fl-ns w-50-ns ph2">
             <Header />
@@ -63,7 +74,7 @@ class AsyncExample extends Component {
               Current Status:{' '} {state.loaded ? 'Loaded' : 'Not Loaded'}
             </button>
             <p>An Async Example typically consists of 3 states:</p>
-            {RenderAwesomeList(state)}
+            <RenderAwesomeList {...state} />
           </div>
           <div className="fl-ns w-50-ns ph2">
             <h4 className="tc">
@@ -78,7 +89,7 @@ class AsyncExample extends Component {
                 Please click that button to load the posts!
               </div>}
 
-            {state.loading && <h1>THANKS FOR LOADING THOSE!</h1>}
+            {state.loading && <h1>THANKS, THEY'RE LOADING!</h1>}
 
             {<RenderPosts posts={state.posts} />}
           </div>
@@ -95,7 +106,10 @@ const RenderPosts = ({ posts }) => {
     ? <ol>
         {posts.map(post => {
           return (
-            <li className="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30">
+            <li
+              key={post.id}
+              className="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30"
+            >
               {post.title}
             </li>
           );
@@ -104,7 +118,7 @@ const RenderPosts = ({ posts }) => {
     : <span />;
 };
 
-const RenderAwesomeList = ({ loading, loaded, elapsed, posts }) => {
+const RenderAwesomeList = ({ loading, loaded, elapsed, posts, progress }) => {
   return (
     <ol>
       <li>
@@ -112,17 +126,24 @@ const RenderAwesomeList = ({ loading, loaded, elapsed, posts }) => {
         {!loading && !loaded && <strong>(you are here)</strong>}
       </li>
       <li>
-        Currently fetching{' '}
-        {loading &&
-          elapsed &&
-          <strong>
-            (you are here: {' '}
-            {elapsed}ms)
-          </strong>}
+        <div>
+          Currently fetching{' '}
+          {loading &&
+            elapsed &&
+            <div>
+              <div className="b fw6">
+                (you are here: {Math.floor(elapsed)}ms)
+              </div>
+              <progress width="100%" value={progress} max="100">
+                {progress}
+              </progress>
+            </div>}
+        </div>
+
       </li>
       <li>
         Data has been fetched {' '}
-        {loaded && posts && <strong>(now you're here!)</strong>}
+        {loaded && posts && <strong>(now you are here!)</strong>}
       </li>
     </ol>
   );
