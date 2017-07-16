@@ -89,7 +89,7 @@ class AsyncExample extends Component {
                 Please click that button to load the posts!
               </div>}
 
-            {state.loading && <h1>THANKS, THEY'RE LOADING!</h1>}
+            {state.loading && <h1>LOADING!</h1>}
 
             {<RenderPosts posts={state.posts} />}
           </div>
