@@ -5,6 +5,7 @@ class AppState extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      async: {},
       header: {
         text: 'Welcome to React-No-Redux',
         logo: logo

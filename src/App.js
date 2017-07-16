@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from './Form';
 import StringState from './StringState';
 import Description from './Description';
+import AsyncExample from './AsyncExample';
 import indexjsImage from './images/Index.png';
 import appStateImage from './images/AppState.png';
 const indexjsimageDesc = `
@@ -83,6 +84,7 @@ class App extends Component {
             />
           </div>
         </div>
+        <AsyncExample update={this.props.setAppState} data={state.async} />
       </div>
     );
   }
