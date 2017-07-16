@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 const slowUrl = 'https://jsonplaceholder.typicode.com/posts';
 const delayEnd = 3000 + Math.random() * 1000;
-const delay = time => result =>
-  new Promise(resolve => setTimeout(() => resolve(result), time));
 
 class AsyncExample extends Component {
   constructor(props) {
@@ -10,30 +8,12 @@ class AsyncExample extends Component {
     this.testAsync = this.testAsync.bind(this);
     this.update = this.update.bind(this);
     this.startTimer = this.startTimer.bind(this);
-    this.fetchResponse = this.fetchResponse.bind(this);
   }
 
   update(newState) {
     this.props.update({
       async: Object.assign({}, this.props.data, newState)
     });
-  }
-
-  startTimer() {
-    const startTime = new Date();
-    // this is incredibly useless
-    // just wanted to show you can do stuff while waiting for ajax
-    this.interval = setInterval(() => {
-      const elapsed = new Date() - startTime;
-      const progress = elapsed / delayEnd * 100;
-      this.update({ loading: true, elapsed, progress });
-    }, 20);
-  }
-
-  fetchResponse(json) {
-    clearInterval(this.interval);
-    console.log('parsed json', json);
-    this.update({ loaded: true, loading: false, posts: json });
   }
 
   testAsync(e) {
@@ -45,14 +25,37 @@ class AsyncExample extends Component {
       return false;
     }
 
+    // update loading
     this.update({ loading: true });
-
+    // for fun add this timer thing
     this.startTimer();
+    // fetch the endpoint
     fetch(slowUrl)
       .then(response => response.json())
-      .then(delay(delayEnd))
-      .then(this.fetchResponse)
-      .catch(ex => console.log('failed', ex));
+      .then(result => {
+        // this can be thrown away! just here to make our response slower so you can see its loading
+        return new Promise(resolve =>
+          setTimeout(() => resolve(result), delayEnd)
+        );
+      })
+      .then(json => {
+        // cleanup the timer
+        clearInterval(this.interval);
+        console.log('parsed json', json);
+        this.update({ loaded: true, loading: false, posts: json });
+      })
+      .catch(err => console.log('failed', err));
+  }
+
+  // this is incredibly useless
+  // just wanted to show you can do stuff while waiting for ajax
+  startTimer() {
+    const startTime = new Date();
+    this.interval = setInterval(() => {
+      const elapsed = new Date() - startTime;
+      const progress = elapsed / delayEnd * 100;
+      this.update({ elapsed, progress });
+    }, 20);
   }
 
   render() {
