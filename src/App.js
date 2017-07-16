@@ -28,6 +28,11 @@ class App extends Component {
           <img src={state.header.logo} className="mw5" alt="logo" />
           <h2 className="near-white">{state.header.text}</h2>
         </div>
+        <a href="https://github.com/blairanderson/react-no-redux/">
+          <h4 className="tc near-black">
+            Fork me on GitHub
+          </h4>
+        </a>
         <div className="cf">
           <div className="fl w-50">
             <StringState
