@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component } from "react";
+import logo from "./logo.svg";
 
 class AppState extends Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class AppState extends Component {
     this.state = {
       async: {},
       header: {
-        text: 'Welcome to React-No-Redux',
+        text: "Welcome to React-No-Redux",
         logo: logo
       }
     };
@@ -18,7 +18,7 @@ class AppState extends Component {
     // newState can be object or function!
     this.setState(updater, () => {
       if (this.props.debug) {
-        console.log('setAppState', JSON.stringify(this.state));
+        console.log("setAppState", JSON.stringify(this.state));
       }
       if (callback) {
         callback();

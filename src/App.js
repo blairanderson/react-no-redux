@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import Form from './Form';
-import StringState from './StringState';
-import Description from './Description';
-import AsyncExample from './AsyncExample';
-import indexjsImage from './images/Index.png';
-import appStateImage from './images/AppState.png';
+import React, { Component } from "react";
+import Form from "./Form";
+import StringState from "./StringState";
+import Description from "./Description";
+import AsyncExample from "./AsyncExample";
+import indexjsImage from "./images/Index.png";
+import appStateImage from "./images/AppState.png";
 const indexjsimageDesc = `
 Wrap your top level app in a regular react component called AppState.
 This wrapper component will be the new place to hold all state logic.`;
@@ -16,23 +16,22 @@ class App extends Component {
     const state = this.props.appState;
     return (
       <div>
-        {state.hoverText &&
+        {state.hoverText && (
           <div
             className="w-100 pa4 bg-near-black"
-            style={{ position: 'fixed', bottom: 0 }}
+            style={{ position: "fixed", bottom: 0 }}
           >
             <h1 className="measure ma0 near-white center tc">
               {state.hoverText}
             </h1>
-          </div>}
+          </div>
+        )}
         <div className="pv1 pv3-ns tc bg-near-black">
           <img src={state.header.logo} className="mw5" alt="logo" />
           <h2 className="near-white">{state.header.text}</h2>
         </div>
         <a href="https://github.com/blairanderson/react-no-redux/">
-          <h4 className="tc near-black">
-            Fork me on GitHub
-          </h4>
+          <h4 className="tc near-black">Fork me on GitHub</h4>
         </a>
         <div className="cf">
           <div className="fl w-50">
@@ -50,7 +49,7 @@ class App extends Component {
           <Description header={state.header} updatedYet={state.updatedYet} />
         </div>
         <h3 className="tc">What does it look like?</h3>
-        <div className="cf pb6" style={{ background: 'rgb(40,44,52)' }}>
+        <div className="cf pb6" style={{ background: "rgb(40,44,52)" }}>
           <div
             onMouseEnter={e => {
               this.props.setAppState({ hoverText: indexjsimageDesc });

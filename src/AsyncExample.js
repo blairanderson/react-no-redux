@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-const slowUrl = 'https://jsonplaceholder.typicode.com/posts';
+import React, { Component } from "react";
+const slowUrl = "https://jsonplaceholder.typicode.com/posts";
 const delayEnd = 3000 + Math.random() * 1000;
 
 class AsyncExample extends Component {
@@ -41,10 +41,10 @@ class AsyncExample extends Component {
       .then(json => {
         // cleanup the timer
         clearInterval(this.interval);
-        console.log('parsed json', json);
+        console.log("parsed json", json);
         this.update({ loaded: true, loading: false, posts: json });
       })
-      .catch(err => console.log('failed', err));
+      .catch(err => console.log("failed", err));
   }
 
   // this is incredibly useless
@@ -53,7 +53,7 @@ class AsyncExample extends Component {
     const startTime = new Date();
     this.interval = setInterval(() => {
       const elapsed = new Date() - startTime;
-      const progress = elapsed / delayEnd * 100;
+      const progress = (elapsed / delayEnd) * 100;
       this.update({ elapsed, progress });
     }, 20);
   }
@@ -74,7 +74,7 @@ class AsyncExample extends Component {
               className="f5 no-underline black pointer bg-near-white bg-animate db w-100 hover-bg-black hover-white pv1 ph3 ba border-box"
               onClick={this.testAsync}
             >
-              Current Status:{' '} {state.loaded ? 'Loaded' : 'Not Loaded'}
+              Current Status: {state.loaded ? "Loaded" : "Not Loaded"}
             </button>
             <p>An Async Example typically consists of 3 states:</p>
             <RenderAwesomeList {...state} />
@@ -83,14 +83,15 @@ class AsyncExample extends Component {
             <h4 className="tc">
               Imaginary Blog Posts: ({state.posts ? state.posts.length : 0})
             </h4>
-            {state.posts &&
-              state.elapsed &&
-              <small className="db tc">loaded in {state.elapsed}ms</small>}
+            {state.posts && state.elapsed && (
+              <small className="db tc">loaded in {state.elapsed}ms</small>
+            )}
 
-            {!state.posts &&
+            {!state.posts && (
               <div className="tc">
                 Please click that button to load the posts!
-              </div>}
+              </div>
+            )}
 
             {state.loading && <h1>LOADING!</h1>}
 
@@ -105,34 +106,35 @@ class AsyncExample extends Component {
 export default AsyncExample;
 
 const RenderPosts = ({ posts }) => {
-  return posts
-    ? <ol>
-        {posts.map(post => {
-          return (
-            <li
-              key={post.id}
-              className="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30"
-            >
-              {post.title}
-            </li>
-          );
-        })}
-      </ol>
-    : <span />;
+  return posts ? (
+    <ol>
+      {posts.map(post => {
+        return (
+          <li
+            key={post.id}
+            className="lh-copy pv3 ba bl-0 bt-0 br-0 b--dotted b--black-30"
+          >
+            {post.title}
+          </li>
+        );
+      })}
+    </ol>
+  ) : (
+    <span />
+  );
 };
 
 const RenderAwesomeList = ({ loading, loaded, elapsed, posts, progress }) => {
   return (
     <ol>
       <li>
-        Data not yet loading{' '}
+        Data not yet loading{" "}
         {!loading && !loaded && <strong>(you are here)</strong>}
       </li>
       <li>
         <div>
-          Currently fetching{' '}
-          {loading &&
-            elapsed &&
+          Currently fetching{" "}
+          {loading && elapsed && (
             <div>
               <div className="b fw6">
                 (you are here: {Math.floor(elapsed)}ms)
@@ -140,12 +142,12 @@ const RenderAwesomeList = ({ loading, loaded, elapsed, posts, progress }) => {
               <progress width="100%" value={progress} max="100">
                 {progress}
               </progress>
-            </div>}
+            </div>
+          )}
         </div>
-
       </li>
       <li>
-        Data has been fetched {' '}
+        Data has been fetched{" "}
         {loaded && posts && <strong>(now you are here!)</strong>}
       </li>
     </ol>
