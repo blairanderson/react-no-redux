@@ -1,7 +1,14 @@
 {
-  "main.js": "static/js/main.84630a42.js",
-  "main.js.map": "static/js/main.84630a42.js.map",
-  "static/media/AppState.png": "static/media/AppState.ee964f79.png",
-  "static/media/Index.png": "static/media/Index.413d6cf7.png",
-  "static/media/logo.svg": "static/media/logo.5d5d9eef.svg"
+  "main.js": "/react-no-redux/static/js/main.536c14e0.chunk.js",
+  "main.js.map": "/react-no-redux/static/js/main.536c14e0.chunk.js.map",
+  "static/js/1.be40dd39.chunk.js": "/react-no-redux/static/js/1.be40dd39.chunk.js",
+  "static/js/1.be40dd39.chunk.js.map": "/react-no-redux/static/js/1.be40dd39.chunk.js.map",
+  "runtime~main.js": "/react-no-redux/static/js/runtime~main.87015899.js",
+  "runtime~main.js.map": "/react-no-redux/static/js/runtime~main.87015899.js.map",
+  "static/media/Index.png": "/react-no-redux/static/media/Index.413d6cf7.png",
+  "static/media/AppState.png": "/react-no-redux/static/media/AppState.ee964f79.png",
+  "static/media/logo.svg": "/react-no-redux/static/media/logo.5d5d9eef.svg",
+  "index.html": "/react-no-redux/index.html",
+  "precache-manifest.02a8d60a1132153888f5a4de246cc39b.js": "/react-no-redux/precache-manifest.02a8d60a1132153888f5a4de246cc39b.js",
+  "service-worker.js": "/react-no-redux/service-worker.js"
 }
