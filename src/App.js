@@ -3,11 +3,13 @@ import Form from "./Form";
 import StringState from "./StringState";
 import Description from "./Description";
 import AsyncExample from "./AsyncExample";
+import Footer from "./Footer";
 import indexjsImage from "./images/Index.png";
 import appStateImage from "./images/AppState.png";
 const indexjsimageDesc = `
 Wrap your top level app in a regular react component called AppState.
 This wrapper component will be the new place to hold all state logic.`;
+
 const appStateImageDesc = `AppState passes down the entire state object to the App component.
 It also passes a callback to update the AppState object`;
 
@@ -96,6 +98,7 @@ class App extends Component {
           </div>
         </div>
         <AsyncExample update={this.props.setAppState} data={state.async} />
+        <Footer />
       </div>
     );
   }
